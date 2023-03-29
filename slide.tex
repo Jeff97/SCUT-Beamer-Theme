@@ -1,0 +1,406 @@
+% \documentclass[aspectratio=169]{beamer} % 比例16:9
+\documentclass[11pt]{beamer} % 比例4:3, 字号默认为11pt
+\usepackage{ctex, hyperref}
+\usepackage[T1]{fontenc}
+
+% other packages
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+
+\author{李展锋}
+\title{
+    软材料生长变形与基于生长的\\
+    构型演化控制研究
+}
+\subtitle{博士论文答辩}
+\institute{
+    华南理工大学\\
+    土木与交通学院
+}
+\date{\today}
+\usepackage{SCUT}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}} % 反斜杠的命令文本显示为蓝色
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+% subsectionstyle=shaded 使所有的小节带阴影。
+% subsectionstyle=hide 隐藏所有的小节。
+% subsectionstyle=show/shaded 使除当前节中的当前小节外的所有小节以半透明的方式显示。
+% subsectionstyle=show/show/hide 抑制当前节外的所有小节。
+% subsectionstyle=show/shaded/hide 抑制当前节外的所有小节，当前节的当前小节高亮显
+% 示。
+
+\begin{document}
+
+\kaishu % 楷书
+
+% 封面帧
+\begin{frame}[plain] % plain 选项 去掉了top 和 bottom的bar，显得简洁一些
+    \titlepage
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[width=0.35\linewidth]{Fig/SCUTnewLogo1.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+% 总目录
+\begin{frame}
+    % \tableofcontents[sectionstyle=show,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+    \tableofcontents[sectionstyle=show,subsectionstyle=show,subsubsectionstyle=hide]
+    % \tableofcontents[pausesections] % 添加几页目录 内容从 section 递增
+\end{frame}
+
+% 每个section开始之前都会重现一遍目录，可在sty文件中修改
+
+\section{研究背景}
+
+\subsection{研究背景与研究意义}
+
+\begin{frame}
+    \frametitle{软物质生长的研究背景} % 帧标题
+    \begin{columns}[t] % b 使栏的底边垂直对齐; c 使栏居中对齐; t 以栏的首行对齐。
+        \column{.5\textwidth}
+        \begin{block}{软物质}
+            \begin{itemize}
+                \item 介于理想流体和固体之间
+                \item 不流动，不坚硬
+            \end{itemize}
+        \end{block}
+        \begin{block}{性质}
+            \begin{itemize}
+                \item 具有较小的弹性模量
+                \item 伴随大变形
+                \item “弱力引起大变化”
+            \end{itemize}
+        \end{block}
+        \column{.5\textwidth}
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=1.0\textwidth]{Fig/Ch1_SoftMaterial.pdf}
+            \caption{一些典型的软材料：(a) 植物叶片；(b) 果实；(c) 水母；(d) 海绵；(e) 橡胶；(f) 水凝胶。}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+
+\subsection{研究现状}
+
+\begin{frame}
+    \frametitle{用Beamer很高大上？} % 帧标题
+    \begin{itemize}
+        \item 大家都会\LaTeX{}，好多学校都有自己的Beamer主题
+        \item 华南理工也要有
+        \item 中文支持请选择 Xe\LaTeX{} 编译选项
+    \end{itemize}
+\end{frame}
+
+
+\section{研究内容}
+
+\subsection{美化主题}
+
+\begin{frame}{这一份Beamer模板与常见模板的主要区别是}
+    \begin{itemize}
+        \item 封面用了plain格式，去除顶部和底部的bar
+        \item 只在每个section开始之前，插入目录页
+        \item 顶部bar的字号更加协调
+        \item 背景为华工校徽元素制作，颜色主题为华工蓝
+        \item 更多该模板的功能可以参考 \url{https://www.latexstudio.net/archives/4051.html}
+        \item 下面列举出了一些Beamer的用法，部分节选自 \url{https://tuna.moe/event/2018/latex/}
+    \end{itemize}
+\end{frame}
+
+\subsection{如何更好地做Beamer}
+
+\begin{frame}{Why Beamer}
+    \begin{itemize}
+        \item \LaTeX 广泛用于学术界，期刊会议论文模板
+    \end{itemize}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{c|c}
+            Microsoft\textsuperscript{\textregistered}  Word & \LaTeX \\
+            \hline
+            文字处理工具 & 专业排版软件 \\
+            容易上手，简单直观 & 容易上手 \\
+            所见即所得 & 所见即所想，所想即所得 \\
+            高级功能不易掌握 & 进阶难，但一般用不到 \\
+            处理长文档需要丰富经验 & 和短文档处理基本无异 \\
+            花费大量时间调格式 & 无需担心格式，专心作者内容 \\
+            公式排版差强人意 & 尤其擅长公式排版 \\
+            二进制格式，兼容性差 & 文本文件，易读、稳定 \\
+            付费商业许可 & 自由免费使用 \\
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{排版举例}
+    \begin{exampleblock}{无编号公式} % 加 * 
+        \begin{equation*}
+            J(\theta) = \mathbb{E}_{\pi_\theta}[G_t] = \sum_{s\in\mathcal{S}} d^\pi (s)V^\pi(s)=\sum_{s\in\mathcal{S}} d^\pi(s)\sum_{a\in\mathcal{A}}\pi_\theta(a|s)Q^\pi(s,a)
+        \end{equation*}
+    \end{exampleblock}
+    \begin{exampleblock}{多行多列公式\footnote{如果公式中有文字出现，请用 $\backslash$mathrm\{\} 或者 $\backslash$text\{\} 包含，不然就会变成 $clip$，在公式里看起来比 $\mathrm{clip}$ 丑非常多。}}
+        % 使用 & 分隔
+        \begin{align}
+            Q_\mathrm{target}&=r+\gamma Q^\pi(s^\prime, \pi_\theta(s^\prime)+\epsilon)\\
+            \epsilon&\sim\mathrm{clip}(\mathcal{N}(0, \sigma), -c, c)\nonumber
+        \end{align}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \begin{exampleblock}{编号多行公式}
+        % Taken from Mathmode.tex
+        \begin{multline}
+            A=\lim_{n\rightarrow\infty}\Delta x\left(a^{2}+\left(a^{2}+2a\Delta x+\left(\Delta x\right)^{2}\right)\right.\label{eq:reset}\\
+            +\left(a^{2}+2\cdot2a\Delta x+2^{2}\left(\Delta x\right)^{2}\right)\\
+            +\left(a^{2}+2\cdot3a\Delta x+3^{2}\left(\Delta x\right)^{2}\right)\\
+            +\ldots\\
+            \left.+\left(a^{2}+2\cdot(n-1)a\Delta x+(n-1)^{2}\left(\Delta x\right)^{2}\right)\right)\\
+            =\frac{1}{3}\left(b^{3}-a^{3}\right)
+        \end{multline}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{图形与分栏}
+    \begin{minipage}[c]{0.3\linewidth}
+        \psset{unit=0.8cm}
+        \begin{pspicture}(-1.75,-3)(3.25,4)
+            \psline[linewidth=0.25pt](0,0)(0,4)
+            \rput[tl]{0}(0.2,2){$\vec e_z$}
+            \rput[tr]{0}(-0.9,1.4){$\vec e$}
+            \rput[tl]{0}(2.8,-1.1){$\vec C_{ptm{ext}}$}
+            \rput[br]{0}(-0.3,2.1){$\theta$}
+            \rput{25}(0,0){%
+            \psframe[fillstyle=solid,fillcolor=lightgray,linewidth=.8pt](-0.1,-3.2)(0.1,0)}
+            \rput{25}(0,0){%
+            \psellipse[fillstyle=solid,fillcolor=yellow,linewidth=3pt](0,0)(1.5,0.5)}
+            \rput{25}(0,0){%
+            \psframe[fillstyle=solid,fillcolor=lightgray,linewidth=.8pt](-0.1,0)(0.1,3.2)}
+            \rput{25}(0,0){\psline[linecolor=red,linewidth=1.5pt]{->}(0,0)(0.,2)}
+%           \psRotation{0}(0,3.5){$\dot\phi$}
+%           \psRotation{25}(-1.2,2.6){$\dot\psi$}
+            \psline[linecolor=red,linewidth=1.25pt]{->}(0,0)(0,2)
+            \psline[linecolor=red,linewidth=1.25pt]{->}(0,0)(3,-1)
+            \psline[linecolor=red,linewidth=1.25pt]{->}(0,0)(2.85,-0.95)
+            \psarc{->}{2.1}{90}{112.5}
+            \rput[bl](.1,.01){C}
+        \end{pspicture}
+    \end{minipage}\hspace{1cm}
+    \begin{minipage}{0.5\linewidth}
+        \medskip
+        %\hspace{2cm}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[height=.4\textheight]{Fig/dtmf.pdf}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{\LaTeX{} 常用命令}
+    \begin{exampleblock}{命令}
+        \centering
+        \footnotesize
+        \begin{tabular}{llll}
+            \cmd{chapter} & \cmd{section} & \cmd{subsection} & \cmd{paragraph} \\
+            章 & 节 & 小节 & 带题头段落 \\\hline
+            \cmd{centering} & \cmd{emph} & \cmd{verb} & \cmd{url} \\
+            居中对齐 & 强调 & 原样输出 & 超链接 \\\hline
+            \cmd{footnote} & \cmd{item} & \cmd{caption} & \cmd{includegraphics} \\
+            脚注 & 列表条目 & 标题 & 插入图片 \\\hline
+            \cmd{label} & \cmd{cite} & \cmd{ref} \\
+            标号 & 引用参考文献 & 引用图表公式等\\\hline
+        \end{tabular}
+    \end{exampleblock}
+    \begin{exampleblock}{环境}
+        \centering
+        \footnotesize
+        \begin{tabular}{lll}
+            \env{table} & \env{figure} & \env{equation}\\
+            表格 & 图片 & 公式 \\\hline
+            \env{itemize} & \env{enumerate} & \env{description}\\
+            无编号列表 & 编号列表 & 描述 \\\hline
+        \end{tabular}
+    \end{exampleblock}
+\end{frame}
+
+% 对于lstlisting环境，需要在frame中加入选项fragile
+\begin{frame}[fragile]{\LaTeX{} 环境命令举例}
+    \begin{minipage}{0.5\linewidth}
+        \begin{lstlisting}[language=TeX]
+        \begin{itemize}
+        \item A \item B
+        \item C
+        \begin{itemize}
+            \item C-1
+        \end{itemize}
+        \end{itemize}
+        \end{lstlisting}
+    \end{minipage}\hspace{1cm}
+    \begin{minipage}{0.3\linewidth}
+        \begin{itemize}
+            \item A
+            \item B
+            \item C
+            \begin{itemize}
+                \item C-1
+            \end{itemize}
+        \end{itemize}
+    \end{minipage}
+    \medskip
+    \pause
+    \begin{minipage}{0.5\linewidth}
+\begin{lstlisting}[language=TeX]
+\begin{enumerate}
+  \item 巨佬 \item 大佬
+  \item 萌新
+  \begin{itemize}
+    \item[n+e] 瑟瑟发抖
+  \end{itemize}
+\end{enumerate}
+\end{lstlisting}
+    \end{minipage}\hspace{1cm}
+    \begin{minipage}{0.3\linewidth}
+        \begin{enumerate}
+            \item 巨佬
+            \item 大佬
+            \item 萌新
+            \begin{itemize}
+                \item[n+e] 瑟瑟发抖
+            \end{itemize}
+        \end{enumerate}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{\LaTeX{} 数学公式}
+    \begin{columns}
+        \begin{column}{.55\textwidth}
+\begin{lstlisting}[language=TeX]
+$V = \frac{4}{3}\pi r^3$
+
+\[
+  V = \frac{4}{3}\pi r^3
+\]
+
+\begin{equation}
+  \label{eq:vsphere}
+  V = \frac{4}{3}\pi r^3
+\end{equation}
+\end{lstlisting}
+        \end{column}
+        \begin{column}{.4\textwidth}
+            $V = \frac{4}{3}\pi r^3$
+            \[
+                V = \frac{4}{3}\pi r^3
+            \]
+            \begin{equation}
+                \label{eq:vsphere}
+                V = \frac{4}{3}\pi r^3
+            \end{equation}
+        \end{column}
+    \end{columns}
+    \begin{itemize}
+        \item 更多内容请看 \href{https://zh.wikipedia.org/wiki/Help:数学公式}{\color{purple}{这里}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{columns}
+        \column{.6\textwidth}
+\begin{lstlisting}[language=TeX]
+    \begin{table}[htbp]
+      \caption{编号与含义}
+      \label{tab:number}
+      \centering
+      \begin{tabular}{cl}
+        \toprule
+        编号 & 含义 \\
+        \midrule
+        1 & 4.0 \\
+        2 & 3.7 \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+    公式~(\ref{eq:vsphere}) 的
+    编号与含义请参见
+    表~\ref{tab:number}。
+\end{lstlisting}
+        \column{.4\textwidth}
+        \begin{table}[htpb]
+            \centering
+            \caption{编号与含义}
+            \label{tab:number}
+            \begin{tabular}{cl}\toprule
+                编号 & 含义 \\\midrule
+                1 & 4.0\\
+                2 & 3.7\\\bottomrule
+            \end{tabular}
+        \end{table}
+        \normalsize 公式~(\ref{eq:vsphere})的编号与含义请参见表~\ref{tab:number}。
+    \end{columns}
+\end{frame}
+
+\begin{frame}{作图}
+    \begin{itemize}
+        \item 矢量图 eps, ps, pdf
+        \begin{itemize}
+            \item METAPOST, pstricks, pgf $\ldots$
+            \item Xfig, Dia, Visio, Inkscape $\ldots$
+            \item Matlab / Excel 等保存为 pdf
+        \end{itemize}
+        \item 标量图 png, jpg, tiff $\ldots$
+        \begin{itemize}
+            \item 提高清晰度，避免发虚
+            \item 应尽量避免使用
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.2\linewidth]{Fig/SCUTnewLogo2.png}
+        \caption{举个反例：这个校徽不是矢量图}
+    \end{figure}
+\end{frame}
+
+\section{计划进度}
+\begin{frame}
+    \begin{itemize}
+        \item 一月：论文撰写
+        \item 三、四月：预答辩，论文提交
+        \item 五月：修改论文，答辩
+    \end{itemize}
+\end{frame}
+
+\section{参考文献}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    \bibliographystyle{alpha}
+    % 如果参考文献太多的话，可以像下面这样调整字体：
+    % \tiny\bibliographystyle{alpha}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        {\Huge\calligra Thanks!}
+    \end{center}
+\end{frame}
+
+\end{document}

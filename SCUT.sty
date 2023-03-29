@@ -1,0 +1,113 @@
+\mode<presentation>
+
+\newif\ifbeamer@secheader
+\beamer@secheaderfalse
+
+%\DeclareOptionBeamer{secheader}{\beamer@secheadertrue}
+\ProcessOptionsBeamer
+
+\makeatletter % [add curpage/total page at the bottom](http://tex.stackexchange.com/questions/100838/beamer-dresden-theme-miniframes-appeareance-and-frame-number-insertion)
+\newcommand{\frameofframes}{/}
+\newcommand{\setframeofframes}[1]{\renewcommand{\frameofframes}{#1}}
+
+\setbeamertemplate{footline} % footline setting
+  {%
+    \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+    \end{beamercolorbox}
+    % TODO: add author and institute in footline 
+    % \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,% 
+    %   leftskip=.3cm,rightskip=.3cm plus1fil]{author in head/foot}%
+    %   \leavevmode{\usebeamerfont{author in head/foot}\insertshortauthor}%
+    %   \hfill%
+    %   {\usebeamerfont{institute in head/foot}\usebeamercolor[fg]{institute in head/foot}\insertshortinstitute}%
+    % \end{beamercolorbox}%
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
+      leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}% 
+      {\usebeamerfont{title in head/foot}\insertshorttitle}%
+      \hfill%
+      {\usebeamerfont{frame number}\usebeamercolor[fg]{frame number}\insertframenumber~\frameofframes~\inserttotalframenumber}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
+    \end{beamercolorbox}
+  }
+\makeatother
+
+% TODO: inner theme
+% \useinnertheme{circles} 
+% \useinnertheme{rectangles}
+\useinnertheme[shadow=true]{rounded} % 为所有的block添加阴影
+
+% TODO: outer theme
+%\useoutertheme{default}
+\useoutertheme[footline=authorinstitutetitle,subsection=true]{smoothbars}
+% \useoutertheme[footline=authorinstitutetitle,subsection=true]{miniframes}
+% subsection=⟨true or false⟩ 显示或抑制在顶部导航区显示小节的行。
+
+% define  color, bg means front ground? bg means back ground
+\xdefinecolor{SCUTblue}{rgb}{0,0.30588,0.635294}  % SCUTblue
+\xdefinecolor{LightGray}{rgb}{0.01,0.01,0.01}  % Light Gray
+\setbeamercolor{footline}{bg=SCUTblue}
+\setbeamercolor{frametitle}{bg=SCUTblue,fg=white}
+\setbeamercolor{title}{bg=SCUTblue}
+% 调整 frame title 字号
+% \setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{frametitle}{size=\footnotesize} % 或者 \small \normalsize
+% 调整 caption的字号
+\setbeamerfont{caption}{size=\scriptsize}
+%\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}[numbered]
+
+% 调色板
+\setbeamercolor{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor{palette secondary}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor{palette quaternary}{fg=white,bg=structure.fg!50!black}
+%\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
+\setbeamercolor{titlelike}{parent=palette primary}
+
+%% sidebar样式 的调色板
+\setbeamercolor{block title}{bg=SCUTblue,fg=white}
+\setbeamercolor*{block title example}{use={normal text,example text},bg=white,fg=SCUTblue}
+% \setbeamercolor*{block title example}{use={normal text,example text},bg=LightGray,fg=SCUTblue}
+\setbeamercolor{fine separation line}{}
+\setbeamercolor{item projected}{fg=white}
+\setbeamercolor{palette sidebar primary}{use=normal text,fg=normal text.fg}
+\setbeamercolor{palette sidebar quaternary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar secondary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
+%\setbeamercolor{palette sidebar quaternary}{fg=white}
+\setbeamercolor{section in sidebar}{fg=brown}
+\setbeamercolor{section in sidebar shaded}{fg=grey}
+\setbeamercolor{separation line}{}
+\setbeamercolor{sidebar}{bg=SCUTblue}
+\setbeamercolor{sidebar}{parent=palette primary}
+\setbeamercolor{structure}{fg=SCUTblue}
+\setbeamercolor{subsection in sidebar}{fg=brown}
+\setbeamercolor{subsection in sidebar shaded}{fg=grey}
+
+% \setbeamercovered{transparent} TODO: 这是什么？
+
+% 在section开始前插入目录
+\AtBeginSection[]{
+	\begin{frame}
+		% \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/show/shaded,subsubsectionstyle=show/show/show/hide]
+	\end{frame}
+}
+% in my understadning...
+% sectionstyle=show/shaded 表示当前的section状态为show，其他的section状态为shaded
+% subsubsectionstyle=show/show/show/hide 表示当前的subsubsection状态为show（倒数第二层），其他的subsubsection状态为hide
+
+% 在subsection开始前插入目录
+% \AtBeginSubsection[]{
+% 	\begin{frame}
+% 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+% 	\end{frame}
+% }
+
+% background 
+\setbeamertemplate{background}{\includegraphics[width=1.2\textwidth]{Fig/Background.pdf}}
+
+\mode
+<all>
